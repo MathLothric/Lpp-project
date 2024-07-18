@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Gastos da Clínica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Gastos da Clínica</h1>
+        <form id="expense-form">
+            <input type="text" id="expense-name" placeholder="Nome da Despesa" required>
+            <input type="number" id="expense-amount" placeholder="Valor" required>
+            <select id="expense-category" required>
+                <option value="salario">Salário</option>
+                <option value="equipamento">Equipamento</option>
+                <option value="medicamento">Medicamento</option>
+                <option value="outros">Outros</option>
+            </select>
+            <button type="submit">Adicionar Despesa</button>
+        </form>
+        <div>
+            <label for="filter-category">Filtrar por Categoria:</label>
+            <select id="filter-category">
+                <option value="todas">Todas</option>
+                <option value="salario">Salário</option>
+                <option value="equipamento">Equipamento</option>
+                <option value="medicamento">Medicamento</option>
+                <option value="outros">Outros</option>
+            </select>
+        </div>
+        <div id="expenses-list"></div>
+        <h2>Total: <span id="total-amount">0</span></h2>
+        <canvas id="expense-chart" width="400" height="200"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        if (typeof Chart !== 'undefined') {
+            console.log('Chart.js carregado com sucesso.');
+        } else {
+            console.error('Falha ao carregar Chart.js.');
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
