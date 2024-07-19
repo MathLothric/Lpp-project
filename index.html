@@ -32,16 +32,14 @@
         </div>
         <div id="expenses-list"></div>
         <h2>Total: <span id="total-amount">0</span></h2>
+        <div>
+            <label for="account-balance">Saldo em Conta:</label>
+            <input type="number" id="account-balance" placeholder="Saldo em Conta" required>
+        </div>
+        <h2>Saldo Restante: <span id="remaining-balance">0</span></h2>
         <canvas id="expense-chart" width="400" height="200"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        if (typeof Chart !== 'undefined') {
-            console.log('Chart.js carregado com sucesso.');
-        } else {
-            console.error('Falha ao carregar Chart.js.');
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
