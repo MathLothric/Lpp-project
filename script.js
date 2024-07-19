@@ -3,12 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const expensesList = document.getElementById('expenses-list');
     const totalAmount = document.getElementById('total-amount');
     const filterCategory = document.getElementById('filter-category');
+    const accountBalance = document.getElementById('account-balance');
+    const remainingBalance = document.getElementById('remaining-balance');
     const ctx = document.getElementById('expense-chart').getContext('2d');
     let chart;
     let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+    let balance = parseFloat(localStorage.getItem('balance')) || 0;
 
     const saveExpenses = () => {
         localStorage.setItem('expenses', JSON.stringify(expenses));
+    };
+
+    const saveBalance = () => {
+        localStorage.setItem('balance', balance.toString());
     };
 
     const updateExpensesList = () => {
@@ -30,6 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateTotalAmount = () => {
         const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
         totalAmount.textContent = total.toFixed(2);
+    };
+
+    const updateRemainingBalance = () => {
+        const total = parseFloat(totalAmount.textContent);
+        const remaining = balance - total;
+        remainingBalance.textContent = remaining.toFixed(2);
+        
+        if (remaining < 0) {
+            remainingBalance.style.color = 'red';
+        } else {
+            remainingBalance.style.color = 'blue';
+        }
     };
 
     const updateChart = () => {
@@ -70,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveExpenses();
         updateExpensesList();
         updateTotalAmount();
+        updateRemainingBalance();
         updateChart();
     };
 
@@ -77,8 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadExpenses = () => {
         expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        balance = parseFloat(localStorage.getItem('balance')) || 0;
+        accountBalance.value = balance;
         updateExpensesList();
         updateTotalAmount();
+        updateRemainingBalance();
         updateChart();
     };
 
@@ -93,8 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
         saveExpenses();
         updateExpensesList();
         updateTotalAmount();
+        updateRemainingBalance();
         updateChart();
         expenseForm.reset();
+    });
+
+    accountBalance.addEventListener('input', (e) => {
+        balance = parseFloat(e.target.value) || 0;
+        saveBalance();
+        updateRemainingBalance();
     });
 
     filterCategory.addEventListener('change', updateExpensesList);
